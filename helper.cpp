@@ -31,7 +31,7 @@ std::unordered_map<std::string, std::string> loadAllShortcutsFromFile(bool& NEW_
     bool valid;
 
     while(std::getline(fileIn, _read)){
-        auto [s_key, s_value] = parseShortcut(_read, valid);
+        auto [s_key, s_value] = parseShortcut(_read, valid, pairNumber);
 
         if(!valid){
             std::cout << s_key << std::endl;
@@ -57,3 +57,4 @@ std::unordered_map<std::string, std::string> loadAllShortcutsFromFile(bool& NEW_
 
     return shortcuts;
 }
+

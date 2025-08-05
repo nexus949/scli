@@ -42,7 +42,14 @@ void openShortcut(std::string& key){
 }
 
 void addShortcut(std::string& key, std::string& value){
-    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG);
+    //key validation check. If the input key is invalid return then and theres
+    auto keyValidation = checkInputKey(key); //returns a std::pair<std::string, bool>
+    if(keyValidation.second == 0){
+        std::cout << keyValidation.first << std::endl;
+        return;
+    }
+
+    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG); //returns a std::unordered_map<std::string, std::string>
 
     //check if the incoming key is present in the loaded map.
     if(shortcuts.find(key) != shortcuts.end()){

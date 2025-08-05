@@ -4,7 +4,7 @@
 
 bool hasDoubleQuote(char character);
 bool outOfBounds(int sizeOfString, int index, int offset);
-std::pair<std::string, bool> separateKey(std::string& _read);
-std::pair<std::string, bool> separateValue(std::string& _read);
-std::pair<std::string, std::string> parseShortcut(std::string& _read, bool& valid);
-std::pair<std::string, bool> checkInputParams(std::string& key, std::string& value);
+std::pair<std::string, bool> separateKey(const std::string& _read, int pairNumber);
+std::pair<std::string, bool> separateValue(const std::string& _read, int pairNumber);
+std::pair<std::string, std::string> parseShortcut(std::string& _read, bool& valid, int pairNumber);
+std::pair<std::string, bool> checkInputKey(std::string& key);
