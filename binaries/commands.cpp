@@ -3,9 +3,10 @@
 #include <utility>
 #include <string>
 #include <unordered_map>
-#include "parser.hpp"
-#include "helper.hpp"
-#include "commands.hpp"
+#include "../headers/parser.hpp"
+#include "../headers/helper.hpp"
+#include "../headers/commands.hpp"
+#include "../headers/commandTypes.hpp"
 
 //this flag is used in the addShortcut() function to determine wheather the shortcut file needs to created or not.
 bool NEW_FILE_CREATION_FLAG = false;
@@ -24,7 +25,7 @@ void helpCmd(){
 void listShortcuts(){
     if(isFileEmpty()) return;
 
-    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG);
+    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG, Commands::LIST);
     int pairNumber = 1;
 
     if(shortcuts.empty()) return;
@@ -49,7 +50,7 @@ void addShortcut(std::string& key, std::string& value){
         return;
     }
 
-    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG); //returns a std::unordered_map<std::string, std::string>
+    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG, Commands::ADD); //returns a std::unordered_map<std::string, std::string>
 
     //check if the incoming key is present in the loaded map.
     if(shortcuts.find(key) != shortcuts.end()){
@@ -83,7 +84,7 @@ void addShortcut(std::string& key, std::string& value){
 void removeShortcut(std::string& key){
     if(isFileEmpty()) return;
 
-    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG);
+    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG, Commands::REMOVE);
     int pairNumber = 1;
 
     if(shortcuts.empty()) return;

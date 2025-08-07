@@ -2,8 +2,9 @@
 #include <string>
 #include <unordered_map>
 #include <fstream>
-#include "helper.hpp"
-#include "parser.hpp"
+#include "../headers/helper.hpp"
+#include "../headers/parser.hpp"
+#include "../headers/commandTypes.hpp"
 
 bool isFileEmpty(){
     std::ifstream fileIn("scli_shortcuts.txt", std::ios::ate);
@@ -16,13 +17,18 @@ bool isFileEmpty(){
     return fileIn.tellg() == 0;
 }
 
-std::unordered_map<std::string, std::string> loadAllShortcutsFromFile(bool& NEW_FILE_CREATION_FLAG){
+std::unordered_map<std::string, std::string> loadAllShortcutsFromFile(bool& NEW_FILE_CREATION_FLAG, Commands cmd){
     std::unordered_map<std::string, std::string> shortcuts;
 
     std::ifstream fileIn("scli_shortcuts.txt");
     if(!fileIn){
+        if(cmd == Commands::ADD){
+            //this ensures that the error message is not printed when user is entering their first shortcut and the shortcut file does not exists.
+            NEW_FILE_CREATION_FLAG = true;
+            return shortcuts;
+        }
+
         std::cerr << "Error opening shortcuts file, No file present, add shortcuts to create a file." << std::endl;
-        NEW_FILE_CREATION_FLAG = true;
         return shortcuts;
     }
 

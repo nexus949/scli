@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cctype>
 #include <sstream>
-#include "parser.hpp"
+#include "../headers/parser.hpp"
 
 bool hasDoubleQuote(char character){
     return character == '"';
@@ -23,7 +23,7 @@ std::pair<std::string, bool> separateKey(const std::string& _read, int pairNumbe
         }
 
         if(!std::isalnum(c) && c != '_'){
-            ss << "[READ][ERROR] Key conataining Whitespaces or Symbols Found ! at pair Number: " << pairNumber;
+            ss << "[READ][ERROR] Key containing Whitespaces or Symbols Found ! at pair Number: " << pairNumber;
             return { ss.str(), 0 };
         }
         key += c;
@@ -78,7 +78,7 @@ std::pair<std::string, bool> separateValue(const std::string& _read, int pairNum
     }
 
     //check for closing a.k.a. trailing double quote
-    if(index == _read.size() && !hasDoubleQuote(_read[index - 1])) {
+    if(_read.empty() || !hasDoubleQuote(_read.back())) {
         ss << "[READ][ERROR] No Closing double quotes found ! at pair Number: " << pairNumber;
         return { ss.str(), 0 };
     }

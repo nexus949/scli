@@ -13,6 +13,15 @@ COMMANDS LIST
 #pragma once
 #include <string>
 
+//this helps to understand which command is using helper functions
+enum command {
+    HELP,
+    LIST,
+    OPEN,
+    ADD,
+    REMOVE
+};
+
 void helpCmd();
 void listShortcuts();
 void addShortcut(std::string& key, std::string& value);
