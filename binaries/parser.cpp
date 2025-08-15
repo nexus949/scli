@@ -16,8 +16,13 @@ bool outOfBounds(int sizeOfString, int index, int offset){
 std::pair<std::string, bool> separateKey(const std::string& _read, int pairNumber){
     std::string key;
     std::stringstream ss;
+
+    //check for empty line
+    if(_read.empty()) return { "", 0 };
+
    //to check if returned string is a valid key or error message we use integer, 1 = valid, 0 = error
     for(char c : _read){
+        //valid return if-case
         if(c == '='){
             return { key, 1 };
         }
@@ -28,7 +33,7 @@ std::pair<std::string, bool> separateKey(const std::string& _read, int pairNumbe
         }
         key += c;
     }
-
+    // if(_read.empty()) return
     ss << "[READ][ERROR] Delimeter '=' not found ! at pair Number: " << pairNumber;
     return { ss.str(), 0 };
 }
@@ -38,6 +43,9 @@ std::pair<std::string, bool> separateValue(const std::string& _read, int pairNum
     std::string value;
     std::stringstream ss;
     bool reachedDelimeter = false;
+
+    //check for empty line
+    if(_read.empty()) return { "", 0 };
 
     std::size_t index = 0;
 

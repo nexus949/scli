@@ -40,6 +40,7 @@ std::unordered_map<std::string, std::string> loadAllShortcutsFromFile(bool& NEW_
         auto [s_key, s_value] = parseShortcut(_read, valid, pairNumber);
 
         if(!valid){
+            if(s_key == "") continue; //blank error is only returned if the line is empty so we just ignore empty lines
             std::cout << s_key << std::endl;
             fileIn.close();
             shortcuts.clear();

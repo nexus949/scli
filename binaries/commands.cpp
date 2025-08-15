@@ -3,6 +3,8 @@
 #include <utility>
 #include <string>
 #include <unordered_map>
+#include <filesystem>
+#include <cstdlib>
 #include "../headers/parser.hpp"
 #include "../headers/helper.hpp"
 #include "../headers/commands.hpp"
@@ -37,9 +39,26 @@ void listShortcuts(){
 }
 
 void openShortcut(std::string& key){
-    //YES I KNOW ITS EMPTY ! ITS ON PURPOSE !
+    //just in case duplicate keys are present it opens the first occurance of the key (can only be done if the shortcurts file is edited manually).
+    auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG, Commands::OPEN);
 
-    //just in case duplicate keys are present it opens the first occurance of the key.
+    //if key is not present
+    if(!shortcuts.count(key)){
+        std::cout << "No valid Key Found ! Use 'add' to add shortcuts..." << std::endl;
+        return;
+    }
+
+    //check if the path is valid
+    if(!std::filesystem::exists(shortcuts[key])){
+        std::cout << "Path associated with key: " << key << " is not a valid path..." << std::endl;
+        return;
+    }
+
+    // a \" denotes a double quote inside a string literal so we do start "" (result of \"\") then a starting " using another \" and we close the string with ";
+    // we then add the path and concat another string literal which contains another "(result of \") inside "";
+    std::string command = "start \"\" \"" + shortcuts[key] + "\"";
+    std::system(command.c_str()); //c_str returns a pointer to the command string's first element !
+
 }
 
 void addShortcut(std::string& key, std::string& value){
@@ -53,7 +72,7 @@ void addShortcut(std::string& key, std::string& value){
     auto shortcuts = loadAllShortcutsFromFile(NEW_FILE_CREATION_FLAG, Commands::ADD); //returns a std::unordered_map<std::string, std::string>
 
     //check if the incoming key is present in the loaded map.
-    if(shortcuts.find(key) != shortcuts.end()){
+    if(shortcuts.count(key)){
         std::cout << "[ERROR] This key already exists. Try another key..." << std::endl;
         return;
     }
