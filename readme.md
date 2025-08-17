@@ -44,7 +44,7 @@ g++ ./binaries/* -o scli
 
 scli uses terminal arguments using `argc` and `argv[]` to get commands. It then parses them and then stores them in a simple text file (`.txt`).
 
-scli stores keys and path in a key - value pair structure and read from the that file itself. Example : `dwn="C://users/username/donwloads"`.
+scli stores keys and path in a key - value pair structure and read from the that file itself. Example : `dwn="C://users/username/donwloads"`. And then open using `scli open dwn`. (The key `dwn` must match what is stored in the `.txt` file !).
 
 Strict parsing rules have been applied so that any tampering or misalignment with the structure will cause scli to throw error.
 
