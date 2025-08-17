@@ -42,7 +42,9 @@ g++ ./binaries/* -o scli
 
 ### ❓ How does it work ?
 
-scli uses terminal arguments using `argc` and `argv[]` to get commands. It then parses them and uses a simple text file (`.txt`) for storing the shortcuts in a key - value pair structure and read from the that file itself.
+scli uses terminal arguments using `argc` and `argv[]` to get commands. It then parses them and then stores them in a simple text file (`.txt`).
+
+scli stores keys and path in a key - value pair structure and read from the that file itself. Example : `dwn="C://users/username/donwloads"`.
 
 Strict parsing rules have been applied so that any tampering or misalignment with the structure will cause scli to throw error.
 
@@ -50,7 +52,7 @@ Strict parsing rules have been applied so that any tampering or misalignment wit
 
 Each key value - pair must be unique ! If duplicates are entered manually by editing the `.txt` file then scli will throw error !
 
-While opening scli checks if a stored path associated with the key is valid or not and if valid it will open it.
+While opening, scli checks if a stored path associated with the key is valid or not, and if valid it will open it.
 
 **SCLI CANNOT OPEN FILES THAT REQUIRE ADMINISTRATOR PREMISSION**
 
